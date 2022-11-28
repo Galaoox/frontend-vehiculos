@@ -59,6 +59,9 @@
           "@config/*": [
               "./src/config/*"
           ],
+          "@providers/*": [
+            "./src/providers/*"
+        ],
       },
   },
   "include": ["src"],
