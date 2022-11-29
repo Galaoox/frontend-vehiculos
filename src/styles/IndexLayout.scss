@@ -1,0 +1,14 @@
+#container-content {
+    background-color: red;
+}
+
+
+
+@include respond-above(sm) {
+
+    #container-content {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        background-color: aqua;
+    }
+}
