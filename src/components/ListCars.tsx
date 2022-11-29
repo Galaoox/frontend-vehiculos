@@ -1,8 +1,9 @@
 import { Car } from '@models/car.model';
-import { Card, List, Col, Row, Typography } from 'antd';
-import { useState } from 'react';
+import {List, Col, Row } from 'antd';
 
-const { Title } = Typography;
+import { useState } from 'react';
+import ItemCar from './ItemCar';
+
 
 function ListCars() {
   const GenerateMockData = () => {
@@ -11,8 +12,8 @@ function ListCars() {
     for (let i = 0; i < 23; i++) {
       data.push(new Car({
         id: i,
-        state: `new`,
-        averagePrice: 1000,
+        state: i % 2 === 0 ? 'Nuevo' : 'Usado',
+        averagePrice: 1290000,
         brand: 'Toyota',
         line: 'Corolla',
         year: 2019,
@@ -30,14 +31,14 @@ function ListCars() {
 
   return (<>
     <Row>
-      <Col flex={2}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat, id soluta blanditiis tenetur magnam nesciunt quo officiis assumenda veniam. Officia id voluptas incidunt sed laboriosam odio atque sint odit. Veniam.</Col>
+      <Col flex={2}>buscador</Col>
       <Col flex={3}>
         <List
           grid={{
             gutter: 12,
             xs: 1,
-            sm: 2,
-            md: 3,
+            sm: 1,
+            md: 2,
             lg: 4,
             xl: 6,
           }}
@@ -48,19 +49,7 @@ function ListCars() {
             pageSize: 5,
           }}
           dataSource={listCars}
-          renderItem={(item) => (
-            <List.Item>
-              <Card
-                cover={
-                  <img
-                    alt="example"
-                    src="https://via.placeholder.com/150"
-                  />
-                }>
-                  <Title  level={5} >{item.line}</Title>
-              </Card>
-            </List.Item>
-          )}
+          renderItem={(item) => <ItemCar data={item} key={item.id} />}
         />
       </Col>
     </Row>
