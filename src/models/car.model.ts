@@ -1,8 +1,12 @@
+import { Brand } from "./brand.model";
+import { Line } from "./line.model";
+import { State } from "./state.model";
+
 export class Car {
     id: number;
-    state: string;
-    brand: string;
-    line: string;
+    state: State;
+    brand: Brand;
+    line: Line;
     year: number;
     averagePrice: number;
     
