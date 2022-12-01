@@ -31,6 +31,7 @@ Pasos para ejecutar el proyecto:
   cd frontend-vehiculos
   yarn dev
 ```
+El proyecto se ejecutara en el localhost con el puerto 5173 
 
 ## Autor
 
