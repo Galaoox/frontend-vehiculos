@@ -19,9 +19,8 @@ export function Search(){
 }
 
 
-export function GetLists(){
+export function getLists(){
     const controller = loadAbort();
-
     return {
         call: axios.get<ResponseGetList>(`${API}/cars/getLists`, {
             signal: controller.signal
@@ -30,7 +29,7 @@ export function GetLists(){
     }
 }
 
-export function GetLinesByBrand(id:number){
+export function getLinesByBrand(id:number){
     const controller = loadAbort();
 
     return {
@@ -41,7 +40,7 @@ export function GetLinesByBrand(id:number){
     }
 }
 
-export function CreateCar(data: Partial<Car>){
+export function createCar(data: Partial<Car>){
     const controller = loadAbort();
     return {
         call: axios.post<Car>(`${API}/cars`,data, {
@@ -52,7 +51,7 @@ export function CreateCar(data: Partial<Car>){
 }
 
 
-export function UploadImageCar(id: number, data: any){
+export function uploadImageCar(id: number, data: any){
     const controller = loadAbort();
     return {
         call: axios.post<any>(`${API}/cars/upload/${id}`,data,{

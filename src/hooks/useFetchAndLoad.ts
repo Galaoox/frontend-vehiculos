@@ -10,6 +10,7 @@ const useFetchAndLoad = () => {
     let controller: AbortController;
 
     const callEndpoint = async (axiosCall: AxiosCall<any>) => {
+        debugger;
         if (axiosCall.controller) controller = axiosCall.controller;
         setLoading(true);
         let result = {} as AxiosResponse<any>;
@@ -18,13 +19,13 @@ const useFetchAndLoad = () => {
             result = await axiosCall.call;
         } catch (err: any) {
             setLoading(false);
-            throw err;
         }
         setLoading(false);
         return result;
     };
 
     const cancelEndpoint = () => {
+        console.log("test");
         setLoading(false);
         controller && controller.abort();
     };
