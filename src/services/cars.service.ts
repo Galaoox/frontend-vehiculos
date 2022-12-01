@@ -7,11 +7,11 @@ import { loadAbort } from "@utilities/axios.utility";
 import axios from "axios";
 
 
-export function Search(){
+export function Search(data:any){
     const controller = loadAbort();
 
     return {
-        call: axios.post<ResponseSearch>(`${API}/cars/search`, {
+        call: axios.post<ResponseSearch>(`${API}/cars/search`,data, {
             signal: controller.signal
         }),
         controller

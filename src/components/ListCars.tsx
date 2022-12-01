@@ -1,57 +1,75 @@
+import useFetchAndLoad from '@hooks/useFetchAndLoad';
 import { Car } from '@models/car.model';
-import { List, Col, Row } from 'antd';
+import { Search } from '@services/cars.service';
 
 import { useState } from 'react';
 import FiltersSearch from './FiltersSearch';
 import ItemCar from './ItemCar';
+import '@styles/ListCars.scss';
+import { Pagination } from 'antd';
 
 
 function ListCars() {
-  const GenerateMockData = () => {
-    const data: any = [];
-
-    for (let i = 0; i < 23; i++) {
-      data.push(new Car({
-        id: i,
-        state: i % 2 === 0 ? 'Nuevo' : 'Usado',
-        averagePrice: 1290000,
-        brand: 'Toyota',
-        line: 'Corolla',
-        year: 2019,
-      }));
-
-    }
-    return data;
-
+  const { callEndpoint } = useFetchAndLoad();
+  const limit = 8;
+  const [filters, setfilters] = useState({})
+  const initialValuesPagination = {
+    maxPage: 1,
+    next: 1,
+    page: 1,
+    total: 8
   }
-  const [listCars, setListCars] = useState<Car[]>(GenerateMockData())
+
+  const [pagination, setPagination] = useState<any>(initialValuesPagination);
+
+  const [listCars, setListCars] = useState<Car[]>([])
+
+  const onSearch = async (_filters: any) => {
+    setfilters(_filters);
+    setPagination(initialValuesPagination)
+    await search(_filters, initialValuesPagination);
+  }
+
+  const handleChangePagination = async (page: number, pageSize: number) => {
+    const _pagination = { ...pagination, page };
+    await search(filters, _pagination);
+  }
+
+  const search = async (filtersData: any, paginationData: any) => {
+    const { data: { data, info } } = await callEndpoint(Search({
+      ...filtersData,
+      options: {
+        page: paginationData.page,
+        limit
+      }
+    }));
+    setListCars(data);
+    setPagination(info);
+  }
 
 
 
 
+  return (<div>
 
-  return (<>
+    <FiltersSearch onSearch={onSearch} />
+    <div id="container-grid-cars">
 
-    <FiltersSearch />
-    <List
-      grid={{
-        gutter: 12,
-        xs: 1,
-        sm: 1,
-        md: 2,
-        lg: 4,
-        xl: 4,
-      }}
-      pagination={{
-        onChange: (page) => {
-          console.log(page);
-        },
-        pageSize: 5,
-      }}
-      dataSource={listCars}
-      renderItem={(item) => <ItemCar data={item} key={item.id} />}
-    />
-  </>
+      {
+        listCars.map((car: Car) => (
+          <ItemCar data={car} key={car.id} />
+        ))
+      }
+
+    </div>
+    {
+      listCars.length ? (
+        <div id="container-pagination">
+          <Pagination onChange={handleChangePagination} defaultCurrent={pagination.page} total={pagination.total} pageSize={limit} />
+        </div>
+      ) : null
+    }
+  </div>
 
   )
 }

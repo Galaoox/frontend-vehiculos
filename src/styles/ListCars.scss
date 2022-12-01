@@ -1,0 +1,28 @@
+#container-grid-cars{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+    margin: 1rem;
+}
+
+#container-pagination{
+    display: flex;
+    justify-content: flex-end;
+    padding-left: 3rem;
+}
+
+@include respond-above(sm) {
+
+    #container-grid-cars{
+        grid-template-columns: 1fr 1fr;
+    }
+    
+}
+
+@include respond-above(md) {
+
+    #container-grid-cars{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+    
+}

@@ -9,6 +9,7 @@ export class Car {
     line: Line;
     year: number;
     averagePrice: number;
+    image?: string;
     
 
     constructor(data: Car) {
@@ -18,5 +19,6 @@ export class Car {
         this.line = data.line;
         this.year = data.year;
         this.averagePrice = data.averagePrice;
+        this.image = data.image;
     }
 }

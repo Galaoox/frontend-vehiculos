@@ -25,7 +25,6 @@ const useFetchAndLoad = () => {
     };
 
     const cancelEndpoint = () => {
-        console.log("test");
         setLoading(false);
         controller && controller.abort();
     };
