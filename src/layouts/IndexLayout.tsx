@@ -11,14 +11,13 @@ function IndexLayout() {
   const { loading } = useLoading();
   return (
     <Spin size='large' spinning={loading} indicator={antIcon} style={{zIndex: 10004}} >
-    <Layout>
+    <Layout style={{background: '#fff'}}>
       <Header>
       <Title  level={1} style={{ color: '#fff' }} >Prueba tecnica</Title>
       </Header>
       <Content id='container-content'>
         <ListCars/>
       </Content>
-      <Footer>Footer</Footer>
     </Layout>
     </Spin>
   )

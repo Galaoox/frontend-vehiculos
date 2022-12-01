@@ -16,7 +16,7 @@ export default function ItemCar({ data: {averagePrice, brand, line, state, year,
       }>
         <Title  level={5} style={{ margin: 0 }} >{brand.name} - {line.name}</Title>
         <Text strong>Modelo {year} {state.name}</Text>
-        <Title  level={4} style={{ margin: 0 }} >${averagePrice}</Title>
+        <Title  level={4} style={{ margin: 0 }} >{`$ ${averagePrice}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</Title>
     </Card>
   )
 }

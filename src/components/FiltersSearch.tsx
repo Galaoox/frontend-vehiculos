@@ -34,7 +34,7 @@ function FiltersSearch({ onSearch }: { onSearch: (filters: any) => void }) {
         return listYears;
     }
 
-    const adaptElementoMenu = (data: any) => {
+    const adaptLists = (data: any) => {
         setListStates(data.listStates);
         setListYears(generateListYears());
         setListBrands(data.listBrands);
@@ -53,7 +53,7 @@ function FiltersSearch({ onSearch }: { onSearch: (filters: any) => void }) {
         setBrandIsSelected(!!value);
     }
 
-    useAsync(_getLists, adaptElementoMenu, () => { });
+    useAsync(_getLists, adaptLists, () => { });
 
 
 

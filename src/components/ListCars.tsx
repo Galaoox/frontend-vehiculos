@@ -2,11 +2,13 @@ import useFetchAndLoad from '@hooks/useFetchAndLoad';
 import { Car } from '@models/car.model';
 import { Search } from '@services/cars.service';
 
-import { useState } from 'react';
+import { createElement, useState } from 'react';
 import FiltersSearch from './FiltersSearch';
 import ItemCar from './ItemCar';
 import '@styles/ListCars.scss';
-import { Pagination } from 'antd';
+import { Button, Empty, Pagination, Space } from 'antd';
+import ModalFormCar from './ModalFormCar';
+import { PlusCircleOutlined } from '@ant-design/icons';
 
 
 function ListCars() {
@@ -21,6 +23,8 @@ function ListCars() {
   }
 
   const [pagination, setPagination] = useState<any>(initialValuesPagination);
+  const [visibleForm, setVisibleForm] = useState<boolean>(false);
+
 
   const [listCars, setListCars] = useState<Car[]>([])
 
@@ -33,6 +37,16 @@ function ListCars() {
   const handleChangePagination = async (page: number, pageSize: number) => {
     const _pagination = { ...pagination, page };
     await search(filters, _pagination);
+  }
+
+
+
+  const closeModal = async (val: boolean) => {
+    setVisibleForm(false);
+  }
+
+  const handleAdd = () => {
+    setVisibleForm(true);
   }
 
   const search = async (filtersData: any, paginationData: any) => {
@@ -48,11 +62,13 @@ function ListCars() {
   }
 
 
-
-
   return (<div>
 
     <FiltersSearch onSearch={onSearch} />
+    <Space style={styles.containerButtons} className='container-buttons'>
+      <Button icon={createElement(PlusCircleOutlined)} htmlType="button" onClick={handleAdd}>Crear vehiculo</Button>
+    </Space>
+
     <div id="container-grid-cars">
 
       {
@@ -64,14 +80,26 @@ function ListCars() {
     </div>
     {
       listCars.length ? (
-        <div id="container-pagination">
+        <div className='container-buttons'>
           <Pagination onChange={handleChangePagination} defaultCurrent={pagination.page} total={pagination.total} pageSize={limit} />
         </div>
-      ) : null
+      ) : (
+        <Empty description="No se encontraron resultados" />
+      )
+    }
+
+    {
+      visibleForm && (<ModalFormCar closeModal={closeModal} visible={visibleForm} />)
     }
   </div>
 
   )
+}
+
+const styles = {
+  containerButtons: {
+    marginBottom: '1rem',
+  }
 }
 
 export default ListCars;
